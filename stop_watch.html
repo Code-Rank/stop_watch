@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            body{
+                background: #4dc47a;
+            }
+            .container{
+                border: 1px solid black;
+                width: 50%;
+                margin-left: 25%;
+                text-align: center;
+                margin-top: 20%;
+                padding: 20px;
+                color: white;
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 30px;
+            }
+            button{
+                color:white;
+                font-size: 30px;
+                font-family: Arial, Helvetica, sans-serif;
+                background: transparent;
+                border:1px solid green;
+            }
+            button:hover{
+                background: green;
+            }
+        </style>
+    </head>
+    <body>
+    <div class="container">
+        Timmer using javascript
+        <br><br><br><br>
+
+        <label for="" id="hours">00</label>: <label for="" id="mint">00</label>: <label for="" id="sec">00</label>:
+        <label for="" id="mili_sec">00</label>
+        <br><br>
+        <button onclick="start_timmer()">Start</button>
+        <button onclick="stop_timmer()">Stop</button>
+        <button onclick="Reset()">Reset</button>
+    </div>
+    </body>
+    <script>
+        let hours = document.getElementById("hours");
+        let mint = document.getElementById("mint");
+        let sec = document.getElementById("sec");
+        let mili_sec = document.getElementById("mili_sec");
+        let counter = 0;
+        let interval;
+
+        function timmer() {
+            counter++;
+            if (counter > 9) {
+                if (counter >= 100) {
+                    counter = 0;
+                    update_second();
+                }
+                mili_sec.innerHTML = counter;
+            } else {
+                mili_sec.innerHTML = "0" + counter;
+            }
+        }
+        function update_second() {
+            let check_current_value = sec.innerHTML;
+
+            if (check_current_value != "60") {
+                sec.innerHTML = Number(check_current_value) + 1;
+            } else {
+                sec.innerHTML = "00";
+                update_mint();
+            }
+        }
+
+        function update_mint() {
+            let check_current_value = mint.innerHTML;
+            if (check_current_value != "60") {
+                mint.innerHTML = Number(check_current_value) + 1;
+            } else {
+                mint.innerHTML = "00";
+                update_hour();
+            }
+        }
+
+        function update_hour() {
+            let check_current_value = hours.innerHTML;
+
+            hours.innerHTML = Number(check_current_value) + 1;
+        }
+
+        function start_timmer() {
+
+            interval = setInterval(timmer, 10);
+        }
+        function stop_timmer() {
+           
+            console.log(interval);
+            clearInterval(interval);
+        }
+        function Reset() {
+            clearInterval(interval);
+            hours.innerHTML = "00";
+            mint.innerHTML = "00";
+            sec.innerHTML = "00";
+            mili_sec.innerHTML = "00";
+            
+        }
+    </script>
+</html>
